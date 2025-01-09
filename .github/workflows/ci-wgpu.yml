@@ -1,5 +1,3 @@
-# This workflow will install MLIR, Python dependencies, run tests and lint with a single version of Python
-
 name: CI - MLIR-based Testing
 
 on:
@@ -24,7 +22,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        path: xdsl
         fetch-depth: 2
 
     - name: Install native dependencies
@@ -40,10 +37,7 @@ jobs:
         cache-dependency-glob: "xdsl/uv.lock"
 
     - name: Set up Python ${{ matrix.python-version }}
-      run: |
-        pwd
-        ls
-        uv python install ${{ matrix.python-version }}
+      run: uv python install ${{ matrix.python-version }}
 
     - name: Install the package locally and nbval
       run: uv sync
