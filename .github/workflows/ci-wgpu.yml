@@ -41,8 +41,7 @@ jobs:
 
     - name: Set up Python ${{ matrix.python-version }}
       run: |
-        # Change directory so that xdsl-opt can be found during installation.
-        cd xdsl
+        pwd
         uv python install ${{ matrix.python-version }}
 
     - name: Install the package locally and nbval
