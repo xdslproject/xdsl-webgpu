@@ -4,7 +4,10 @@ version = "0.1.0"
 description = "Run your MLIR GPU kernels on WebGPU!"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["xdsl>=0.25.0", "wgpu==0.19.3"]
+dependencies = [
+    "xdsl @ git+https://github.com/xdslproject/xdsl.git@016b922d2d6d2ccfab10fe7ab65a0daecc60fb49",
+    "wgpu==0.19.3",
+]
 
 [dependency-groups]
-dev = ["xdsl[dev]>=0.25.0"]
+dev = ["xdsl[dev]"]
