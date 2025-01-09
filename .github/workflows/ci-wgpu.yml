@@ -42,6 +42,7 @@ jobs:
     - name: Set up Python ${{ matrix.python-version }}
       run: |
         pwd
+        ls
         uv python install ${{ matrix.python-version }}
 
     - name: Install the package locally and nbval
