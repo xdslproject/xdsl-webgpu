@@ -1,0 +1,52 @@
+# This workflow will install MLIR, Python dependencies, run tests and lint with a single version of Python
+
+name: CI - MLIR-based Testing
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+
+    env:
+      LLVM_SYMBOLIZER_PATH: /usr/lib/llvm-11/bin/llvm-symbolizer
+      MLIR-Version: d401987fe349a87c53fe25829215b080b70c0c1a
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        path: xdsl
+        fetch-depth: 2
+
+    - name: Install native dependencies
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: mesa-vulkan-drivers
+        version: 1.0
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        enable-cache: true
+        cache-dependency-glob: "xdsl/uv.lock"
+
+    - name: Set up Python ${{ matrix.python-version }}
+      run: |
+        # Change directory so that xdsl-opt can be found during installation.
+        cd xdsl
+        uv python install ${{ matrix.python-version }}
+
+    - name: Install the package locally and nbval
+      run: uv sync
+
+    - name: Execute lit tests
+      run: uv run lit -v tests/filecheck/

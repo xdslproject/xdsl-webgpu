@@ -11,3 +11,9 @@ dependencies = [
 
 [dependency-groups]
 dev = ["xdsl[dev]"]
+
+[project.scripts]
+xdsl-webgpu-run = "xdsl_webgpu.tools.xdsl_webgpu_run:main"
+
+[tool.uv]
+package = true
