@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "xdsl @ git+https://github.com/xdslproject/xdsl.git@016b922d2d6d2ccfab10fe7ab65a0daecc60fb49",
-    "wgpu==0.23.0",
+    "wgpu==0.24.0",
 ]
 
 [dependency-groups]
