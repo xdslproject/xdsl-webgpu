@@ -7,12 +7,11 @@ import wgpu.utils  # pyright: ignore[reportMissingTypeStubs]
 
 from xdsl.backend.wgsl.wgsl_printer import WGSLPrinter
 from xdsl.dialects import gpu
-from xdsl.dialects.builtin import AnyMemRefTypeConstr, IndexType, MemRefType
+from xdsl.dialects.builtin import IndexType, MemRefType
 from xdsl.interpreter import Interpreter, InterpreterFunctions, impl, register_impls
 from xdsl.interpreters.shaped_array import ShapedArray
 from xdsl.ir import Attribute, SSAValue
 from xdsl.traits import SymbolTable
-from xdsl.utils.isattr import isattr
 
 
 @register_impls
@@ -29,7 +28,7 @@ class WGPUFunctions(InterpreterFunctions):
         Still a helper function, because boilerplating will need to happen to forward
         e.g. scalar parameters!
         """
-        if isattr(operand.type, AnyMemRefTypeConstr):
+        if isinstance(operand.type, MemRefType):
             value = interpreter.get_values((operand,))[0]
             if not isinstance(value, wgpu.GPUBuffer):
                 raise ValueError(

@@ -3,7 +3,7 @@
 builtin.module attributes {gpu.container_module} {
   "gpu.module"() ({
     "gpu.func"() ({
-    ^0(%arg : memref<4x4xindex>):
+    ^bb0(%arg : memref<4x4xindex>):
       %0 = "arith.constant"() {"value" = 2 : index} : () -> index
       %1 = "gpu.global_id"() {"dimension" = #gpu<dim x>} : () -> index
       %2 = "gpu.global_id"() {"dimension" = #gpu<dim y>} : () -> index
@@ -17,7 +17,7 @@ builtin.module attributes {gpu.container_module} {
         "sym_name" = "fill"
        } : () -> ()
     "gpu.func"() ({
-    ^0(%arg : memref<4x4xindex>):
+    ^bb0(%arg : memref<4x4xindex>):
       %0 = "arith.constant"() {"value" = 1 : index} : () -> index
       %1 = "gpu.global_id"() {"dimension" = #gpu<dim x>} : () -> index
       %2 = "gpu.global_id"() {"dimension" = #gpu<dim y>} : () -> index
@@ -29,7 +29,7 @@ builtin.module attributes {gpu.container_module} {
         "gpu.kernel",
         "sym_name" = "inc"
        } : () -> ()
-    "gpu.module_end"() : () -> ()
+    "gpu.yield"() : () -> ()
   }) {"sym_name" = "gpu"} : () -> ()
   func.func @main() -> index {
     %four = "arith.constant"() {"value" = 4 : index} : () -> index
