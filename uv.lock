@@ -1805,8 +1805,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "wgpu", specifier = ">=0.28.0,<=0.29" },
-    { name = "xdsl", specifier = ">=0.55.0,<=0.56.0" },
+    { name = "wgpu", specifier = ">=0.28.0,<0.29" },
+    { name = "xdsl", specifier = ">=0.55.0,<0.56.0" },
 ]
 
 [package.metadata.requires-dev]
